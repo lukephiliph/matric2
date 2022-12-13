@@ -1,0 +1,31 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css" />
+      <!-- font awesome style -->
+      <link href="/stylesheets/font-awesome.min.css" rel="stylesheet" />
+      <!-- Custom styles for this template -->
+      <link href="/stylesheets/style.css" rel="stylesheet" />
+      <!-- responsive style -->
+      <link href="/stylesheets/responsive.css" rel="stylesheet" />
+
+<section>
+    <div class="container mt-5">
+        <table class="table table-striped mt-5">
+  <thead>
+    <tr>
+      <th scope="col">No</th>
+      <th scope="col">User name</th>
+      <th scope="col">Email</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users}}
+    <tr>
+      <th scope="row">#</th>
+      <td>{{this.name}}</td>
+      <td>{{this.email}}</td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+    </div>
+</section>

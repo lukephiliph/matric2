@@ -1,0 +1,40 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css" />
+      <!-- font awesome style -->
+      <link href="/stylesheets/font-awesome.min.css" rel="stylesheet" />
+      <!-- Custom styles for this template -->
+      <link href="/stylesheets/style.css" rel="stylesheet" />
+      <!-- responsive style -->
+      <link href="/stylesheets/responsive.css" rel="stylesheet" />
+
+<section class="product_section layout_padding">
+      <div class="container">
+        <div class="row">
+          {{#each products}}
+        <div class="col-sm-6 col-md-4 col-lg-4">
+                  <div class="box">
+                     <div class="option_container">
+                        <div class="options">
+                           <a href="/add-to-cart/{{this.product._id}}" class="option1">
+                           Add To Cart
+                           </a>
+                          
+                        </div>
+                     </div>
+                     <div class="img-box">
+                        <img src="/product-images/{{this.product._id}}.jpg" alt="...">
+                     </div>
+                     <div class="detail-box">
+                        <h5>
+                           {{this.product.Name}}
+                        </h5>
+                        <h6>
+                           Rs {{this.product.Price}}/-
+                        </h6>
+                     </div>
+                  </div>
+               </div>
+               {{/each}}
+      </div></div>
+      
+       
+    </section>

@@ -1,0 +1,28 @@
+"Cart management (Add to cart, list products in cart,
+ remove products from cart).
+ Purchase with COD.
+ Order management &
+ order cancellation option in admin side,
+ Order cancellation option in user side.
+ Order history and status in user side. Mobile OTP login.
+Crop"
+"-pop up confirmation
+
+
+-wishlist
+-template issue clear
+-catagory maagement
+-use data table
+-add stock
+-admin login
+-middlewares folder
+-controller
+-add try catch
+-env file
+-error handling"
+
+
+"Integrate payment methods Razorpay, Paypal.
+Image Zooming, Image Cropping
+Admin dashboard
+Chart & Graph reports in Admin Side

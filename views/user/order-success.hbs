@@ -1,0 +1,46 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css" />
+      <!-- font awesome style -->
+      <link href="/stylesheets/font-awesome.min.css" rel="stylesheet" />
+      <!-- Custom styles for this template -->
+      <link href="/stylesheets/style.css" rel="stylesheet" />
+      <!-- responsive style -->
+      <link href="/stylesheets/responsive.css" rel="stylesheet" />
+<section>
+    <div class="row">
+        <div class="container mt-3">
+            <div class="col-md-12 text-center"><h2>Order placed Successfully</h2>
+                <br>
+                <a href="/orders" class="btn btn-success">View Orders</a>
+            </div>
+            
+        </div>
+    </div>
+    <div class="row g-5">
+      <div class="col-md-5 col-lg-4 order-md-last">
+        <ul class="list-group mb-3">
+          {{#each orders}}
+          <li class="list-group-item d-flex justify-content-between lh-sm">
+            <div>
+              <h6 class="my-0">{{this.product.Name}}</h6>
+              <small class="text-muted">Quantity:  {{this.quantity}}</small>
+            </div>
+            <span class="text-muted">Rs.{{this.product.Price}}/-</span>
+          </li>
+          {{/each}}
+          <li class="list-group-item d-flex justify-content-between bg-light">
+            <div class="text-success">
+              <h6 class="my-0">Promo code</h6>
+              <small>EXAMPLECODE</small>
+            </div>
+            <span class="text-success">Rs.5</span>
+          </li>
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Total Rs.</span>
+            <strong>Rs.{{total}}/-</strong>
+          </li>
+        </ul>
+
+
+        </div>
+    </div>
+</section>

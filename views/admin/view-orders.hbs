@@ -1,0 +1,46 @@
+<section>
+  <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
+    />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.css"/>
+    <div class="container mt-5">
+       
+  <table class="table table-striped mt-5" id="tableone">
+   
+  <thead>
+    <tr>
+      
+      <th scope="col">Title</th>
+      <th scope="col">Delivery Address</th>
+      <th scope="col">Price</th>
+      <th scope="col">Payment Method</th>
+      <th scope="col">Status</th>
+     
+    </tr>
+  </thead>
+  <tbody>
+    {{#each orders}}
+    <tr>
+      
+      <td>{{this.date}}</td>
+      <td>{{this.deliveryDetails.address}},{{this.deliveryDetails.country}},{{this.deliveryDetails.pincode}}</td>
+      <td>Rs.{{this.totalAmount}} /-</td>
+      <td>{{this.paymentMethod}}</td>
+      <td> <select name="Subcategory" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                    <option>{{this.status}}</option>
+                            <option>Pending</option>
+                            <option>cancel order</option>
+                            </select></td>
+     
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+    </div>
+</section>
+<script>
+      $(document).ready(function () {
+        $("#tableone").DataTable();
+      });
+    </script>

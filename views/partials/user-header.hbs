@@ -1,0 +1,45 @@
+ <header>
+    
+        <nav class="navbar navbar-expand-lg bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" style="color: white;" href="/"><img src="/images/878372908dd7124cb560b6c513a1c38d--alphabet-video-kindergarten-songs.jpg" alt="" width="72" height="40"></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <li class="nav-item">
+          <a class="nav-link active" style="color: white;" aria-current="page" href='/'>Products</a>
+        </li>
+      </ul>
+     
+    </div>
+
+    {{#if user}}
+     <li class="nav-item">
+      <li class="nav-item">
+          <a href="/orders" class="nav-link" style="color: white;">Orders</a>
+        </li>
+         <li><a class="nav-link" style="color: white;" href="/wishlist"><img src="/images/online-shopping.png" style="height: 40px;width:40px"></a></li>
+      
+          <a class="nav-link" style="color: white;" href="/cart">Cart <span style="background-color:green ;" class="badge badge-success">{{cartCount}}</span></a>
+          
+        </li>
+        <a href="/profile" class="btn btn-dark me-2" style="color: white;">Welcome {{user.name}}</a> 
+
+          <a class="btn btn-success ml-4" href="/logout" role="button">LogOut</a>
+    {{else}}
+    <a class="btn btn-success ml-4" href="/login" role="button">LogIn</a>
+    {{/if}}
+     
+    
+  
+    </header>
+    {{!-- <script  src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script  src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script  src="https://cdn.datatables.net/buttons/2.3.2/js/dataTables.buttons.min.js"></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script  src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.html5.min.js"></script>
+    <script  src="https://cdn.datatables.net/buttons/2.3.2/js/buttons.print.min.js"></script> --}}

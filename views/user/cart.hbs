@@ -1,0 +1,123 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css" />
+      <!-- font awesome style -->
+      <link href="/stylesheets/font-awesome.min.css" rel="stylesheet" />
+      <!-- Custom styles for this template -->
+      <link href="/stylesheets/style.css" rel="stylesheet" />
+      <!-- responsive style -->
+      <link href="/stylesheets/responsive.css" rel="stylesheet" />
+
+<section>
+    <div class="container">
+        <table class="table mt-5">
+            <thead>
+                <tr>
+                    <th scope="col">Item</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each products}}
+                <tr>
+                    
+                    <td><img
+                  src="/product-images/{{this.product._id}}.jpg"
+                  class="card-img-top"
+                  alt="..."
+                  style="height: 40px; ;width: 40px;"
+                /></td>
+                    <td>{{this.product.Name}}</td>
+                    <td>Rs {{this.product.Price}} /-</td>
+                   
+                    <td>
+                        <button class="btn btn-light mr-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',-1)">-</button><span id="{{this.product._id}}">{{this.quantity}}</span><button class="btn btn-light ml-3" onclick="changeQuantity('{{this._id}}','{{this.product._id}}','{{../user}}',1)">+</button>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger" onclick="removeproduct('{{this._id}}','{{this.product._id}}')">remove</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+
+        </table>
+        <br>
+        <div class="float-right pr-5">
+        <h5 class="float-right mr-5">pay Rs <span id="total">Rs {{total}}</span>/-</h5>
+        <a href="/place-order" class="btn btn-success mt-5" style="width: 100%;"><b>Place Order</b></a>
+        
+</div>
+<br>
+<a href="/orders" class="btn btn-success">Order History</a>
+    </div>
+    
+</section>
+
+
+
+
+
+<script>
+    function changeQuantity(cartId,proId,userId,count){
+        let quantity=parseInt(document.getElementById(proId).innerHTML)
+        count=parseInt(count)
+        $.ajax({
+            url:'/change-product-quantity',
+            data:{
+                user:userId,
+                cart:cartId,
+                product:proId,
+                count:count,
+                quantity:quantity
+                
+            },
+            
+                method:'post',
+            success:(response)=>{
+                if(response.removeProduct){
+                    alert("product removed from cart")
+                    location.reload()
+                }
+                 else{
+                    console.log(response)
+                    document.getElementById(proId).innerHTML=quantity+count
+                    document.getElementById('total').innerHTML=response.total
+                 }
+            }
+            })
+             
+    }
+
+   
+</script>
+
+<script>
+    function removeproduct(cartId,proId){
+        console.log(cartId,proId)
+      $.ajax({
+        url:'/remove-product',
+        data:{
+            cart:cartId,
+            product:proId
+        },
+           method:'post',
+        success:(response)=>{
+                if(response.removeproduct){
+                    alert("product removed from cart")
+                    location.reload()
+                }
+                 else{  
+                    
+                    location.reload()
+                 }
+            }
+      })  
+    }
+</script>
+<script src="/js/jquery-3.4.1.min.js"></script>
+      <!-- popper js -->
+      <script src="/js/popper.min.js"></script>
+      <!-- bootstrap js -->
+      <script src="/js/bootstrap.js"></script>
+      <!-- custom js -->
+      <script src="/js/custom.js"></script>
