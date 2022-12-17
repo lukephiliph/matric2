@@ -490,7 +490,31 @@ module.exports={
             
          
         }
-        
+        ,
+        blockUser:(userId)=>{
+          return new Promise((resolve,reject)=>{
+              db.get().collection(collection.USER_COLLECTION)
+              .updateOne({_id:objectId(userId)},{
+                  $set:{
+                     Access:false 
+                  }
+              }).then((response)=>{
+                  resolve()
+              })
+          })
+      },
+      unBlockUser:(userId)=>{
+          return new Promise((resolve,reject)=>{
+              db.get().collection(collection.USER_COLLECTION)
+              .updateOne({_id:objectId(userId)},{
+                  $set:{
+                      Access:true
+                  }
+              }).then((response)=>{
+                  resolve()
+              })
+          })
+      }
     
     
     

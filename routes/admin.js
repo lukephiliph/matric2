@@ -3,7 +3,8 @@ var express = require('express');
 var router = express.Router();
 const productHelpers = require('../helpers/product-helpers');
 const userHelpers = require('../helpers/user-helpers')
-const adminHelper=require('../helpers/admin-helpers')
+const adminHelper=require('../helpers/admin-helpers');
+const adminHelpers = require('../helpers/admin-helpers');
 /* GET users listing. */
 
 router.get('/',function(req,res){
@@ -145,8 +146,48 @@ router.get('/add-coupens',function(req,res){
       res.redirect('/admin/add-coupens')
     })
   })
-
-
+  
+  router.get('/block-user/:id',(req,res)=>{
+    let userId=req.params.id
+    userHelpers.blockUser(userId).then((response)=>{
+      res.redirect('/admin/view-users')
+    })
+  })
+  
+  router.get('/unblock-user/:id',(req,res)=>{
+    let userId=req.params.id
+    userHelpers.unBlockUser(userId).then((response)=>{
+      res.redirect('/admin/view-users')
+    })
+  })  
+  router.get('/add-banner',function(req,res){
+    adminHelpers.getAllbanner().then((banner)=>{
+  
+    res.render('admin/add-banner',{admin:true,banner})
+  })
+  })
+  
+  router.post('/add-banner',function(req, res) {
+    // console.log(req.body);
+    // console.log(req.files.banner);
+  
+    adminHelpers.addBanner(req.body).then((id) => {
+      console.log("Inserted Id : " + id);
+      let banner = req.files.banner;
+      try {
+        banner.mv('./public/product-images/'+id+'.jpg');
+        res.redirect("/admin/add-banner");
+      } catch (err) {
+        console.log(err);
+      }
+    });
+  })
+  router.get('/delete-banner/:id',(req,res)=>{
+    let catId = req.params.id
+    adminHelpers.deletebanner(catId).then((response)=>{
+      res.redirect('/admin/add-banner')
+    })
+  })
 
 module.exports = router; 
  

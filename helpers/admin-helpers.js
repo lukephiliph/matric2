@@ -73,7 +73,35 @@ module.exports={
             resolve(orders)
         })
 
-      }
+      },
+      addBanner: (banner) => {
+        return new Promise((resolve, reject) => {
+          db.get()
+            .collection(collection.BANNER_COLLECTION)
+            .insertOne({ name: banner.name })
+            .then((data) => {
+              resolve(data.insertedId);
+            });
+        });
+      },
+      getAllbanner:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let banner = await db.get().collection(collection.BANNER_COLLECTION)
+            .find().toArray()
+            resolve(banner)
+        })
+    },
+
+    deletebanner:(catId)=>{
+    return new Promise((resolve,reject)=>{
+        db.get().collection(collection.BANNER_COLLECTION)
+        .deleteOne({_id:objectId(catId)}).then((response)=>{
+            resolve(response)
+        })
+    })
+}
+
+
 
  
 }
