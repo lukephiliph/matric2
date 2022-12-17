@@ -9,7 +9,7 @@ const verifylogin=(req,res,next)=>{
     next()
   }else{
     res.redirect('/login')
-  }
+  }     
 }
 router.get('/', async function(req, res, next) {
   let user=req.session.user
@@ -41,7 +41,7 @@ router.post('/signup',(req,res)=>{
       console.log(req.body) 
       console.log(response)  
       req.session.loggedIn=true       
-      req.session.user=response.user   
+      req.session.user=response.user  
       res.redirect('/login')    
     })
 })  
