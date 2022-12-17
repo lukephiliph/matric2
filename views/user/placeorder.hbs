@@ -192,7 +192,7 @@
           </li>
         </ul>
 
-        <form class="card p-2">
+        <form class="card p-2" id="coopen">
           <div class="input-group">
             <input type="text" class="form-control" placeholder="Promo code">
             <button type="submit" class="btn btn-secondary">Redeem</button>
@@ -394,4 +394,23 @@
       }
     })
   }
+   $("#coopen").submit((e)=>{
+    e.preventDefault()
+    $.ajax({
+      url:'/place-order',
+     data:$('#coopen').serialize(),
+     method:'post',
+      success:(response)=>{
+        try{if(response.success)
+           document.getElementById('total').innerHTML=response.total- 100}
+           else{
+            document.getElementById('total').innerHTML=response.total
+           }
+        }
+        catch{
+          console.log("err")
+        }
+        
+      }
+    })
 </script>   

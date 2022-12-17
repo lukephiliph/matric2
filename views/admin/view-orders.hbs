@@ -1,3 +1,11 @@
+<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css" />
+      <!-- font awesome style -->
+      <link href="/stylesheets/font-awesome.min.css" rel="stylesheet" />
+      <!-- Custom styles for this template -->
+      <link href="/stylesheets/style.css" rel="stylesheet" />
+      <!-- responsive style -->
+      <link href="/stylesheets/responsive.css" rel="stylesheet" />
+
 <section>
   <link
       rel="stylesheet"
@@ -27,10 +35,11 @@
       <td>{{this.deliveryDetails.address}},{{this.deliveryDetails.country}},{{this.deliveryDetails.pincode}}</td>
       <td>Rs.{{this.totalAmount}} /-</td>
       <td>{{this.paymentMethod}}</td>
-      <td> <select name="Subcategory" class="form-select form-select-sm" aria-label=".form-select-sm example">
+      <td> <select name="status" class="form-select form-select-sm" aria-label=".form-select-sm example">
                     <option>{{this.status}}</option>
                             <option>Pending</option>
-                            <option>cancel order</option>
+                            <option>Cancel Order</option>
+                            <option>Shipped</option>
                             </select></td>
      
     </tr>

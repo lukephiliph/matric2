@@ -32,7 +32,7 @@ router.get('/login',(req,res)=>{
       
 })
 
-
+  
 router.get('/signup',(req,res)=>{
   res.render('user/signup')
 })
@@ -42,14 +42,14 @@ router.post('/signup',(req,res)=>{
       console.log(response)  
       req.session.loggedIn=true       
       req.session.user=response.user  
-      res.redirect('/login')    
+      res.redirect('/')    
     })
 })  
 router.post('/login',(req,res)=>{
-  userHelpers.doLogin(req.body).then((response)=>{
+  userHelpers.doLogin(req.body).then((response)=>{  
     if(response.status){
       req.session.loggedIn=true
-      req.session.user=response.user
+      req.session.user=response.user   
       res.redirect('/')
     }else{
       req.session.loginErr=true     
@@ -167,9 +167,9 @@ router.get('/profile',verifylogin,async(req,res)=>{
 })
 
 
-router.post('/coupen',async(req,res)=>{
+router.post('/coopen',async(req,res)=>{
   let total=await userHelpers.getTotalAmount(req.session.user._id)
-  let coupen= await userHelpers.getcoupen(req.body,total).then((response)=>{
+  let coopen= await userHelpers.getcoupen(req.body,total).then((response)=>{
     console.log(response)
     res.redirect('user/placeorder',{totalAmount})
   })

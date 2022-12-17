@@ -80,8 +80,13 @@
                 }
                  else{
                     console.log(response)
-                    document.getElementById(proId).innerHTML=quantity+count
-                    document.getElementById('total').innerHTML=response.total
+                    let stock=document.getElementById(proId).innerHTML=quantity+count
+                    if(stock>10){
+                        alert("product is out of stock")
+                    }else{
+                        document.getElementById(proId).innerHTML=quantity+count
+                        document.getElementById('total').innerHTML=response.total}
+                    
                  }
             }
             })

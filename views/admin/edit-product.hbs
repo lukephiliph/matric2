@@ -1,3 +1,11 @@
+
+<link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.css" />
+      <!-- font awesome style -->
+      <link href="/stylesheets/font-awesome.min.css" rel="stylesheet" />
+      <!-- Custom styles for this template -->
+      <link href="/stylesheets/style.css" rel="stylesheet" />
+      <!-- responsive style -->
+      <link href="/stylesheets/responsive.css" rel="stylesheet" />
 <section>
     <div class="container mt-4">
         <div class="col-md-6">
@@ -28,6 +36,9 @@
                     <label for="">Image</label>
                     <img src="/product-images/{{product._id}}.jpg" style="width: 100px;height: 100px;" id="imgView">
                    <input type="file" name="Image" class="form-control" onchange="viewImage(event)"> 
+
+                   <label for="">Stock</label>
+                   <input type="text" name="Stock" class="form-control">
 
                    <button type="submit" class="btn btn-primary mt-4">Submit</button>
             </form>
