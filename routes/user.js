@@ -16,7 +16,7 @@ router.get('/', async function(req, res, next) {
   let cartCount=null
   if(req.session.user){
     cartCount=await userHelpers.getCartCount(req.session.user._id)
-    let banner= await adminHelpers.getAllbanner(req.session.user._id)
+    
   }
   productHelpers.getAllProducts().then((products)=>{
     res.render('user/view-products',{products,user,cartCount})

@@ -5,6 +5,7 @@ const productHelpers = require('../helpers/product-helpers');
 const userHelpers = require('../helpers/user-helpers')
 const adminHelper=require('../helpers/admin-helpers');
 const adminHelpers = require('../helpers/admin-helpers');
+const admincontroller=require('../controllers/admincontroller')
 /* GET users listing. */
 
 router.get('/',function(req,res){
@@ -65,7 +66,7 @@ router.post('/edit-product/:id',(req,res)=>{
     
   })  
 })
-router.get('/view-users', function(req, res, next) {
+router.route('/view-users').get(function(req, res, next) {
   userHelpers.getAllUsers().then((users)=>{
     res.render('admin/view-users',{users})
   })

@@ -502,7 +502,7 @@ module.exports={
                   resolve()
               })
           })
-      },
+      },  
       unBlockUser:(userId)=>{
           return new Promise((resolve,reject)=>{
               db.get().collection(collection.USER_COLLECTION)
