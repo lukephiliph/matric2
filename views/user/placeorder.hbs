@@ -205,7 +205,7 @@
           <div class="row g-3">
             <div class="col-sm-6">
               <label for="firstName" class="form-label">First name</label>
-              <input type="text" class="form-control" id="firstName" placeholder="" value="" required>
+              <input type="text" class="form-control" id="firstName" placeholder="" value="{{user.name}}" required>
               <div class="invalid-feedback">
                 Valid first name is required.
               </div>
@@ -222,14 +222,14 @@
 
             <div class="col-12">
               <label for="email" class="form-label">Email <span class="text-muted">(Optional)</span></label>
-              <input type="email" class="form-control" id="email" placeholder="you@example.com">
+              <input type="email" class="form-control" id="email" placeholder="you@example.com" value="{{user.email}}">
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
             </div>
             <div class="col-12">
               <label for="email" class="form-label">Phone <span class="text-muted">(Optional)</span></label>
-              <input type="phone" class="form-control" id="phone" name="Phone" placeholder="+91" >
+              <input type="phone" class="form-control" id="phone" name="Phone" placeholder="+91" value="{{user.Phone}}" >
               <div class="invalid-feedback">
                 Please enter a valid email address for shipping updates.
               </div>
@@ -237,7 +237,7 @@
 
             <div class="col-12">
               <label for="address" class="form-label">Address</label>
-              <input type="text" class="form-control" name="Address" id="address"  placeholder="1234 Main St" required>
+              <input type="text" class="form-control" name="Address" id="address" value="{{user.Address}}" placeholder="1234 Main St" required>
               <div class="invalid-feedback">
                 Please enter your shipping address.
               </div>
@@ -245,7 +245,7 @@
 
             <div class="col-12">
               <label for="address2" class="form-label">Address 2 <span class="text-muted">(Optional)</span></label>
-              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
+              <input type="text" class="form-control" id="address2" placeholder="Apartment or suite" value="{{user.Address2}}">
             </div>
 
             <div class="col-md-5">
@@ -272,7 +272,7 @@
 
             <div class="col-md-3">
               <label for="zip" class="form-label">Zip</label>
-              <input type="text" class="form-control" name="PIN" id="pin" placeholder="" required>
+              <input type="text" class="form-control" name="PIN" id="pin"  required value="{{user.Pincode}}">
               <div class="invalid-feedback">
                 Zip code required.
               </div>
@@ -392,6 +392,6 @@
           alert("payment failed")
         }
       }
-    })
+    })   
   }
-</script>   
+</script>     

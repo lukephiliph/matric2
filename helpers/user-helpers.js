@@ -514,6 +514,24 @@ module.exports={
                   resolve()
               })
           })
+      },
+      updateuser:(details,user)=>{
+        console.log(details)
+        console.log(user)
+        console.log(details.Address)
+        return new Promise((resolve,reject)=>{
+          db.get().collection(collection.USER_COLLECTION)
+          .updateOne({_id:objectId(user)},{
+            $set:{
+              Address:details.Address,
+              Address2:details.Address2,
+              Pincode:details.Pincode,
+              Phone:details.Phone
+            }
+          }).then((response)=>{
+            resolve()
+          })
+        })
       }
     
     

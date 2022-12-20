@@ -6,31 +6,38 @@ const userHelpers = require('../helpers/user-helpers')
 const adminHelper=require('../helpers/admin-helpers');
 const adminHelpers = require('../helpers/admin-helpers');
 const admincontroller=require('../controllers/admincontroller')
+
 /* GET users listing. */
 
-router.get('/',function(req,res){
 
+router.get('/',function(req,res){
+  
   res.render('admin/adminlogin')    
 })
 router.post('/adminlogin',function(req,res){
+  req.session.loggedIn=true       
+  req.session.admin=response.admin
+  console.log(response.admin)
   res.redirect('/admin/view-products')
 })
 
 router.get('/add-product',async function(req,res){
   await adminHelper.getCategory().then((category)=>{
-    res.render('admin/add-product',{category})
+    res.render('admin/add-product',{admin:true,category})
   })
 
   
 })
 router.post('/add-product',async(req,res)=>{
-    productHelpers.addProduct(req.body,(id)=>{
+      await productHelpers.addProduct(req.body,(id)=>{
       let image=req.files.Image
+      let image2=req.files.Image2
       console.log(id)
-            image.mv('./public/product-images/'+id+'.jpg',(err,done)=>{
+            image.mv('./public/product-images/'+id+'.jpg'),
+            image2.mv('./public/product-images/'+id+'.jpg'),(err,done)=>{
         if(!err){res.redirect('/admin/view-products')}
         else{console.log(err)}
-      })  
+      }
        
     })  
 }) 
@@ -46,7 +53,7 @@ router.get('/delete-product/:id',(req,res)=>{
 router.get('/edit-product/:id',async(req,res)=>{
   let product= await productHelpers.getProductDetails(req.params.id)
   await adminHelper.getCategory().then((category)=>{
-    res.render('admin/edit-product',{product,category})
+    res.render('admin/edit-product',{admin:true,product,category})
   })
 })
  
@@ -63,12 +70,12 @@ router.post('/edit-product/:id',(req,res)=>{
     }catch{
 
     }
-    
+        
   })  
 })
 router.route('/view-users').get(function(req, res, next) {
   userHelpers.getAllUsers().then((users)=>{
-    res.render('admin/view-users',{users})
+    res.render('admin/view-users',{admin:true,users})
   })
   
 })
@@ -115,12 +122,12 @@ router.get('/signup',function(req,res){
    
 router.get('/view-orders',(req,res)=>{
     orders=adminHelper.getOrders().then((orders)=>{
-    res.render('admin/view-orders',{orders})  
+    res.render('admin/view-orders',{admin:true,orders})  
   })
 })
 router.get('/chart',async(req,res)=>{
   orders=await adminHelper.Chartdata().then((orders)=>{
-    res.render('admin/chart',{orders})  
+    res.render('admin/chart',{admin:true,orders})  
     console.log(orders)
   })
   
@@ -128,7 +135,7 @@ router.get('/chart',async(req,res)=>{
 
 
 router.get('/add-category',function(req,res){
-res.render('admin/add-category')
+res.render('admin/add-category',{admin:true})
 })
 
 router.post('/add-category',async function(req,res){
@@ -139,7 +146,7 @@ router.post('/add-category',async function(req,res){
 })
 
 router.get('/add-coupens',function(req,res){
-  res.render('admin/coupens')
+  res.render('admin/coupens',{admin:true})
   })
 
   router.post('/add-coupens',async function(req,res){
@@ -185,9 +192,10 @@ router.get('/add-coupens',function(req,res){
   })
   router.get('/delete-banner/:id',(req,res)=>{
     let catId = req.params.id
+    console.log(catId)
     adminHelpers.deletebanner(catId).then((response)=>{
       res.redirect('/admin/add-banner')
-    })
+    })   
   })
 
 module.exports = router; 

@@ -3,6 +3,7 @@ var express = require('express');
 var router = express.Router();
 const productHelpers = require('../helpers/product-helpers')
 const userHelpers=require('../helpers/user-helpers')
+const adminHelpers = require('../helpers/admin-helpers');
 /* GET home page. */
 const verifylogin=(req,res,next)=>{
   if(req.session.loggedIn){
@@ -18,15 +19,17 @@ router.get('/', async function(req, res, next) {
     cartCount=await userHelpers.getCartCount(req.session.user._id)
     
   }
+  banner=await adminHelpers.getAllbanner()
+  
   productHelpers.getAllProducts().then((products)=>{
-    res.render('user/view-products',{products,user,cartCount})
+    res.render('user/view-products',{products,user,cartCount,banner})
   })
-    
+       
 })
 
 router.get('/login',(req,res)=>{
   if (req.session.loggedIn) {
-      res.redirect('/')
+      res.redirect('/')   
   }else{
     
     res.render('user/login',{"loginErr":req.session.loginErr})
@@ -58,7 +61,7 @@ router.post('/login',(req,res)=>{
       req.session.loginErr=true     
       res.redirect('/login')        
     }    
-  })  
+  })      
 })
 router.get('/logout',(req,res)=>{
   req.session.destroy()
@@ -169,6 +172,14 @@ router.get('/profile',verifylogin,async(req,res)=>{
   console.log(userprofile)
 })
 
+router.post('/profile',verifylogin,async(req,res)=>{
+  userHelpers.updateuser(req.body,req.session.user._id).then((response)=>{
+    res.redirect('/login')
+  })
+  console.log(req.session.user._id)
+  console.log(req.body)
+}) 
+
 
 router.post('/coopen',async(req,res)=>{
   let total=await userHelpers.getTotalAmount(req.session.user._id)
@@ -178,7 +189,11 @@ router.post('/coopen',async(req,res)=>{
   })
    
 }) 
-  
+router.route('/selectedpro/:id').get(verifylogin,async(req,res)=>{
+  let products=await productHelpers.getSelectedProducts(req.params.id)
+  res.render('user/selectedpro',{products})
+})
+
 
 module.exports = router;   
-                  
+        
