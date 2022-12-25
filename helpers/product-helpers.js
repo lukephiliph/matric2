@@ -52,6 +52,53 @@ module.exports={
             })
         
         })
+    },cancelOrder:(userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.ORDER_COLLECTION)
+            .updateOne({_id:objectId(userId)},{
+                $set:{
+                    status:"cancelled" 
+                }
+            }).then((response)=>{
+                resolve()
+            })
+        })
+    },
+    placeOrder:(userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.ORDER_COLLECTION)
+            .updateOne({_id:objectId(userId)},{
+                $set:{
+                    status:"placed"
+                }
+            }).then((response)=>{
+                resolve()
+            })   
+        })
+    },
+    shipOrder:(userId)=>{
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.ORDER_COLLECTION)
+            .updateOne({_id:objectId(userId)},{
+                $set:{
+                    status:"shipped"
+                }
+            }).then((response)=>{
+                resolve()
+            })
+        })         
+    },
+    deliverOrder:(userId)=>{   
+        return new Promise((resolve,reject)=>{
+            db.get().collection(collection.ORDER_COLLECTION)
+            .updateOne({_id:objectId(userId)},{
+                $set:{
+                    status:"delivered"
+                }
+            }).then((response)=>{
+                resolve()
+            })
+        })
     }
     
-}        
+}          

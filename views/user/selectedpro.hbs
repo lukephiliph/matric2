@@ -7,9 +7,9 @@
             <div class="card">
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="images p-3">
+                        <div class="images p-2 ml-5">
                            
-                                <img class="image" id="zoom" src="/product-images/{{products._id}}.jpg" style="width: 19rem; height: 20rem"/>
+                                <img class="image" id="zoom" src="/product-images/{{products._id}}.jpg" style="width: 15rem; height: 16rem"/>
                             
                             <div class="thumbnail text-center" style="height: 5rem; margin-top: 1rem">
                                 <img onclick="change_image(this)" src="/product-images/{{products._id}}.jpg" data-zoom-image=" " % width="70" style="height: 5rem; margin-left: -9rem"/>
@@ -54,6 +54,9 @@
                                     <a href="/add-to-cart/{{products._id}}"><button class="btn btn-danger text-uppercase mr-2 px-4" type="submit">
                                         Add to cart
                                     </button></a>
+                                    <a href="/add-to-wishlist/{{products._id}}"><button class="btn btn-danger text-uppercase mr-2 px-4" type="submit">
+                                        Add to wishlist
+                                    </button></a>
                                     <i class="fa fa-heart text-muted"></i>
                                     <i class="fa fa-share-alt text-muted"></i>
                                 </div>
@@ -65,7 +68,7 @@
         </div>
     </div>
 </div>
-{{!-- <script>
+<script>
     function change_image(image) {
         var container = document.getElementById("zoom");
 
@@ -84,4 +87,4 @@
 </script>
 <script>
     $("#zoom2").elevateZoom();
-</script> --}}
+</script>

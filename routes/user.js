@@ -24,7 +24,7 @@ router.get('/', async function(req, res, next) {
   productHelpers.getAllProducts().then((products)=>{
     res.render('user/view-products',{products,user,cartCount,banner})
   })
-       
+            
 })
 
 router.get('/login',(req,res)=>{
@@ -182,18 +182,23 @@ router.post('/profile',verifylogin,async(req,res)=>{
 
 
 router.post('/coopen',async(req,res)=>{
-  let total=await userHelpers.getTotalAmount(req.session.user._id)
-  let coopen= await userHelpers.getcoupen(req.body,total).then((response)=>{
-    console.log(response)
-    res.redirect('user/placeorder',{totalAmount})
-  })
-   
+  let totalPrice=await userHelpers.getTotalAmount(req.session.user._id)
+  let coopen= await userHelpers.getcoupen(req.body,totalPrice).then((Price)=>{
+    console.log("total"+Price)
+    res.json({Price})      
+  })  
 }) 
+
 router.route('/selectedpro/:id').get(verifylogin,async(req,res)=>{
   let products=await productHelpers.getSelectedProducts(req.params.id)
   res.render('user/selectedpro',{products})
 })
-
-
+router.get('/orders/:id',(req,res)=>{
+  let userId=req.params.id
+  productHelpers.cancelOrder(userId).then((response)=>{
+    res.redirect('/orders')
+  })
+})    
+  
 module.exports = router;   
-        
+             

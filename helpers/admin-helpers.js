@@ -100,9 +100,71 @@ module.exports={
             resolve(response)
         })
     })
-}
-
-
+},
+getAllOrders:(userId)=>{
+    return new Promise(async(resolve,reject)=>{
+    let totalorders=await db.get().collection(collection.ORDER_COLLECTION)
+        .aggregate([
+            {
+                $group:{_id:"",count:{$sum:1}}
+            }
+        ]).toArray()
+           
+            resolve(totalorders[0].count)
+            console.log(totalorders[0].count);
+        })
+    },
+    getTotalAmount:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let totalAmount =await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                    $match:{status:"placed"}
+                },
+                // {
+                //     $project:{_id:0,status:1,totalAmount:1}
+                // },
+                {
+                    $group:{_id:"status",total:{$sum:"$totalAmount"}}
+                }
+            ]).toArray()
+            console.log(totalAmount)
+            resolve(totalAmount[0].total)
+           
+        })
+    },
+    getcanceledOrder:()=>{
+        return new Promise(async(resolve,reject)=>{
+            let totalAmount =await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                {
+                    $match:{status:"cancelled"}
+                },
+                // {
+                //     $project:{_id:0,status:1,totalAmount:1}
+                // },
+                {
+                    $group:{_id:"status",total:{$sum:"$totalAmount"}}
+                }
+            ]).toArray()
+            console.log(totalAmount)
+            resolve(totalAmount[0].total)
+           
+        })
+    },cancelOrders:(userId)=>{
+        return new Promise(async(resolve,reject)=>{
+        let totalorders=await db.get().collection(collection.ORDER_COLLECTION)
+            .aggregate([
+                {
+                    $match:{status:"cancelled"}
+                },
+                {
+                    $group:{_id:"",count:{$sum:1}}
+                }
+            ]).toArray()
+               
+                resolve(totalorders[0].count)
+                console.log(totalorders[0].count);
+            })
+        }
 
  
 }

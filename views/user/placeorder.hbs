@@ -184,17 +184,23 @@
               <h6 class="my-0">Promo code</h6>
               <small>EXAMPLECODE</small>
             </div>
-            <span class="text-success">Rs.5</span>
+            <span class="text-success">Rs.1000/-</span>
           </li>
           <li class="list-group-item d-flex justify-content-between">
-            <span>Total Rs.</span>
-            <strong>Rs.{{total}}/-</strong>
+            <span>Total </span>
+            <strong>Rs. {{total}}/-</strong>
+          </li>
+        </ul>
+        
+          <li class="list-group-item d-flex justify-content-between">
+            <span>Payable Amount <br> with promocode </span>
+            <span>Rs. <strong id="Price">{{Price.Price}}</strong>/-</span>
           </li>
         </ul>
 
-        <form class="card p-2" id="coopen">
+        <form class="card p-2" id="coupon-form" >
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Promo code">
+            <input type="text" class="form-control" name="promocode" placeholder="Promo code">
             <button type="submit" class="btn btn-secondary">Redeem</button>
           </div>
         </form>
@@ -395,3 +401,17 @@
     })   
   }
 </script>     
+<script>
+      $('#coupon-form').submit((e)=>{
+        e.preventDefault()
+        $.ajax({
+            url:"/coopen",
+            method:"POST",
+            data:$('#coupon-form').serialize(),
+            success:(Price) =>{
+              console.log(Price.Price)
+              document.getElementById('Price').innerHTML=Price.Price
+    }
+        })
+    })
+</script>

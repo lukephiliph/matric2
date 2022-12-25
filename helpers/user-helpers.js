@@ -463,34 +463,24 @@ module.exports={
               console.log(cartItems)
             resolve(cartItems);
           });
-        },
-        getcoupen:(details)=>{
-          return new Promise(async(resolve,reject)=>{
-            let coopenstatus=false
-            try{
-              let coupen=await db.get().collection(collection.COUPEN_COLLECTION).findOne( { CoupenCode:details.CoupenCode } ).then(()=>{
-                coopenstatus=true
-                if(coopenstatus){
-                 details.total
-                  
-                }else{
-                  totalAmount=details.total
-                }
-                resolve(totalAmount)
+        },getcoupen:(details,totalPrice)=>{
+          console.log(details)
+          console.log(totalPrice)
+          coupenstatus=false
+          return new Promise((resolve,reject)=>{
+            db.get().collection(collection.COUPEN_COLLECTION).findOne({CoupenCode:details.promocode}).then((coupenstatus)=>{
+              if(coupenstatus){
+                total=totalPrice-1000
+                
+              }else{
+                  total=totalPrice
               }
-              )
-              console.log(coopenstatus)
+              resolve(total)
              
-            }catch{
-              console.log("err")
-            }
-               
-           
+            })
           })
-            
-         
-        }
-        ,
+        },
+
         blockUser:(userId)=>{
           return new Promise((resolve,reject)=>{
               db.get().collection(collection.USER_COLLECTION)

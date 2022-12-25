@@ -120,18 +120,25 @@ router.get('/signup',function(req,res){
   res.render('admin/signup')
 })
    
-router.get('/view-orders',(req,res)=>{
+router.get('/view-orders',async(req,res)=>{
+  let totalAmount=await adminHelpers.getTotalAmount()
+  let totalorders=await adminHelpers.getAllOrders()
+  let cancelled=await adminHelpers.getcanceledOrder()
+  let cancelOrders=await adminHelpers.cancelOrders()
+  cancelOrders
+  console.log(totalAmount)
     orders=adminHelper.getOrders().then((orders)=>{
-    res.render('admin/view-orders',{admin:true,orders})  
+    res.render('admin/view-orders',{admin:true,orders,totalAmount,totalorders,cancelled,cancelOrders})  
   })
 })
 router.get('/chart',async(req,res)=>{
-  orders=await adminHelper.Chartdata().then((orders)=>{
-    res.render('admin/chart',{admin:true,orders})  
-    console.log(orders)
-  })
-  
-})
+  let totalorders=await adminHelpers.getAllOrders()
+  let totalAmount=await adminHelpers.getTotalAmount()
+  console.log(totalAmount)
+  console.log(totalorders)
+      res.render('admin/chart',{admin:true,totalorders,totalAmount})
+
+})              
 
 
 router.get('/add-category',function(req,res){
@@ -144,10 +151,10 @@ router.post('/add-category',async function(req,res){
   })
   console.log(req.body)
 })
-
+      
 router.get('/add-coupens',function(req,res){
   res.render('admin/coupens',{admin:true})
-  })
+  })   
 
   router.post('/add-coupens',async function(req,res){
     await adminHelper.addCoupens(req.body).then((response)=>{
@@ -159,7 +166,7 @@ router.get('/add-coupens',function(req,res){
     let userId=req.params.id
     userHelpers.blockUser(userId).then((response)=>{
       res.redirect('/admin/view-users')
-    })
+    })     
   })
   
   router.get('/unblock-user/:id',(req,res)=>{
@@ -197,6 +204,21 @@ router.get('/add-coupens',function(req,res){
       res.redirect('/admin/add-banner')
     })   
   })
-
+  router.get('/orders',async(req,res)=>{
+    console.log(req.session.user);
+     let orders=await userHelpers.getUserOrders()
+     console.log(orders);
+     res.render('admin/orders',{admin:true,orders})
+   })
+   
+   router.get('/cancel-order/:id',(req,res)=>{
+     let userId=req.params.id
+     productHelpers.cancelOrder(userId).then((response)=>{
+       res.redirect('/admin/view-orders')
+     })
+   })
+                    
+                 
 module.exports = router; 
- 
+                               
+

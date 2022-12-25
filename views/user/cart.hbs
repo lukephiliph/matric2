@@ -107,15 +107,29 @@
         },
            method:'post',
         success:(response)=>{
-                if(response.removeproduct){
-                    alert("product removed from cart")
+                
+                                swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+                })
+                .then(() => {
+                        if (response.removeproduct) {
+                    swal("Poof! Your imaginary file has been deleted!", {
+                    icon: "success",
+                    })
+                    location.reload();
+                } else {
+                    swal("Your imaginary file is safe!");
                     location.reload()
                 }
-                 else{  
-                    
-                    location.reload()
-                 }
-            }
+                });
+                                
+                                
+                                
+                            }
       })  
     }
 </script>
@@ -126,3 +140,6 @@
       <script src="/js/bootstrap.js"></script>
       <!-- custom js -->
       <script src="/js/custom.js"></script>
+
+
+      

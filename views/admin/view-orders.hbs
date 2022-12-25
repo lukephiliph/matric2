@@ -19,12 +19,27 @@
     <link href="/stylesheets/dashboard.css" rel="stylesheet">
 
 <section>
+  
   <link
       rel="stylesheet"
       href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"
     />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.1/datatables.min.css"/>
     <div class="container mt-5">
+      <div><h1>Sales Report</h1></div>
+
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col shadow p-4">Total Revenue Rs : <span style="color: red;">{{totalAmount}}/-</span></div>
+          <div class="col shadow p-4">Total Orders : <span style="color: red;">{{totalorders}}</span></div>
+          <div class="col shadow p-4">Cancelled Orders : <span style="color: red;">{{cancelOrders}}</span></div>
+          <div class="col shadow p-4">Cancelled Amount Rs: <span style="color: red;">{{cancelled}}/-</span></div>
+          
+        </div>
+      </div>
+      <div><h2></h2>
+      </div>
+    
        
   <table class="table table-striped mt-5" id="tableone">
    
@@ -36,10 +51,14 @@
       <th scope="col">Price</th>
       <th scope="col">Payment Method</th>
       <th scope="col">Status</th>
+      <th scope="col">Cancel order</th>
      
     </tr>
   </thead>
   <tbody>
+
+    
+
     {{#each orders}}
     <tr>
       
@@ -47,12 +66,21 @@
       <td>{{this.deliveryDetails.address}},{{this.deliveryDetails.country}},{{this.deliveryDetails.pincode}}</td>
       <td>Rs.{{this.totalAmount}} /-</td>
       <td>{{this.paymentMethod}}</td>
-      <td> <select name="status" class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    <option>{{this.status}}</option>
-                            <option>Pending</option>
-                            <option>Cancel Order</option>
-                            <option>Shipped</option>
-                            </select></td>
+       <td>
+          {{this.status}}
+         
+      
+           
+          
+            {{!-- <a href="/admin/ship-order/{{this._id}}" class="btn btn-success">Ship order</a> --}}
+            {{!-- <option><a href="/admin/cancel-order/{{this._id}}" class="btn btn-success">Cancel Order</a></option>
+            <option ><a href="/admin/place-order/{{this._id}}" class="btn btn-success">Place order</a></option> 
+            <option > <a href="/admin/deliver-order/{{this._id}}" class="btn btn-success">Deliver order</a></option>          --}}
+
+      
+          
+    </td>
+    <td> <a href="/admin/cancel-order/{{this._id}}" class="btn btn-success">Cancel Order</a></td>
      
     </tr>
     {{/each}}
@@ -60,6 +88,8 @@
 </table>
     </div>
 </section>
+
+
 <script>
       $(document).ready(function () {
         $("#tableone").DataTable();
