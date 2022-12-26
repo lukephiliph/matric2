@@ -48,8 +48,8 @@ router.post('/signup',(req,res)=>{
       console.log(response)  
       req.session.loggedIn=true       
       req.session.user=response.user  
-      res.redirect('/')    
-    })
+      res.redirect('/login')      
+    })   
 })  
 router.post('/login',(req,res)=>{
   userHelpers.doLogin(req.body).then((response)=>{  
@@ -61,7 +61,7 @@ router.post('/login',(req,res)=>{
       req.session.loginErr=true     
       res.redirect('/login')        
     }    
-  })      
+  })         
 })
 router.get('/logout',(req,res)=>{
   req.session.destroy()
@@ -198,7 +198,7 @@ router.get('/orders/:id',(req,res)=>{
   productHelpers.cancelOrder(userId).then((response)=>{
     res.redirect('/orders')
   })
-})    
-    
+})            
+         
 module.exports = router;   
              
