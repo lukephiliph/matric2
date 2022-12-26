@@ -75,14 +75,25 @@
                 method:'post',
             success:(response)=>{
                 if(response.removeProduct){
-                    alert("product removed from cart")
+                    swal({
+                        title: "Completely removed!",
+                        text: "You clicked the button!",
+                        icon: "success",
+                        button: "Success!",
+                        });
+
                     location.reload()
                 }
                  else{
                     console.log(response)
                     let stock=document.getElementById(proId).innerHTML=quantity+count
                     if(stock>10){
-                        alert("product is out of stock")
+                        swal({
+                            title: "Stock Out!",
+                            text: "product is out of stock currently!",
+                            icon: "warning",
+                            button: "Cancel",
+                            });
                     }else{
                         document.getElementById(proId).innerHTML=quantity+count
                         document.getElementById('total').innerHTML=response.total}
@@ -110,14 +121,14 @@
                 
                                 swal({
                 title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this imaginary file!",
+                text: "Once deleted, you will not be able to recover this item!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
                 })
                 .then(() => {
                         if (response.removeproduct) {
-                    swal("Poof! Your imaginary file has been deleted!", {
+                    swal("Poof! Your item has been deleted!", {
                     icon: "success",
                     })
                     location.reload();
