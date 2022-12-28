@@ -164,6 +164,37 @@ getAllOrders:(userId)=>{
                 resolve(totalorders[0].count)
                 console.log(totalorders[0].count);
             })
+        },getOrderDate:()=>{
+            return new Promise(async(resolve,reject)=>{
+                let orderDate = await db.get().collection(collection.ORDER_COLLECTION).aggregate([
+                    {
+                        $group:{_id:"$date", count:{$sum:1}}
+                    },
+                    {
+                        $sort:{_id:-1}
+                    },
+                    {
+                        $limit:5
+                    },
+                    {
+                        $project:{_id:1,count:0}
+                    }
+                ]).toArray()
+                console.log(orderDate)
+                let count = [];
+                let i;
+                let n=orderDate.length
+                for(i=0;i<n;i++){
+                 count[n-1-i]=orderDate[i]._id
+                }
+                let obj={}
+                for(i=0;i<count.length;i++){
+                    obj[i]=count[i]
+    
+                }
+                console.log(obj)
+                resolve(obj)
+            })
         }
 
  

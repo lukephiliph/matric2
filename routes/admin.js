@@ -28,21 +28,20 @@ router.get('/add-product',async function(req,res){
 
   
 })
+
 router.post('/add-product',async(req,res)=>{
-      await productHelpers.addProduct(req.body,(id)=>{
+     await productHelpers.addProduct(req.body,(id)=>{
       let image=req.files.Image
       let image2=req.files.Image2
-      console.log(id)
-            image.mv('./public/product-images/'+id+'.jpg'),
-            image2.mv('./public/product-images/'+id+'.jpg'),(err,done)=>{
-        if(!err){res.redirect('/admin/view-products')}
+         image.mv('./public/product-images/'+id+'.jpg'),image2.mv('./public/product-images2/'+id+'.jpg'),(err,done)=>{
+        if(!err){res.redirect('/admin/add-products')}
         else{console.log(err)}
       }
        
     })  
 }) 
 
-router.get('/delete-product/:id',(req,res)=>{
+router.get('/delete-product/:id',(req,res)=>{    
       let proId=req.params.id
       console.log(proId)
       productHelpers.deleteProduct(proId).then((response)=>{
@@ -129,22 +128,34 @@ router.get('/view-orders',async(req,res)=>{
   console.log(totalAmount)
     orders=adminHelper.getOrders().then((orders)=>{
     res.render('admin/view-orders',{admin:true,orders,totalAmount,totalorders,cancelled,cancelOrders})  
-  })
+  }) 
 })
 router.get('/chart',async(req,res)=>{
-  let totalorders=await adminHelpers.getAllOrders()
-  let totalAmount=await adminHelpers.getTotalAmount()
-  console.log(totalAmount)
-  console.log(totalorders)
-      res.render('admin/chart',{admin:true,totalorders,totalAmount})
-
+  let totalAmount = await productHelpers.getTotalAmount()
+  let totalSales = await productHelpers.getTotalSales()
+  let totalOrders = await productHelpers.getTotalOrders()
+  let orderDate = await productHelpers.getOrderCount()
+  let date = await productHelpers.getOrderDate()
+  let sales = await productHelpers.getSalesCount()
+  let cod = await productHelpers.getCodCount()
+  let online = await productHelpers.getOnlineCount()
+  console.log("sales"+sales)
+  console.log("totalSales"+totalSales)
+  console.log("totalOrders"+totalOrders)
+  console.log("orderDate"+orderDate)
+  console.log("date"+date)
+  console.log("cod"+cod )
+  console.log("totalAmount"+totalAmount)
+  
+  res.render('admin/chart',{admin:true,totalAmount,totalSales,totalOrders,orderDate,date,sales,cod,online})
+   
 })              
 
 
 router.get('/add-category',function(req,res){
 res.render('admin/add-category',{admin:true})
 })
-
+     
 router.post('/add-category',async function(req,res){
   await adminHelper.addCategory(req.body).then((response)=>{
     res.redirect('/admin/add-category')
@@ -217,8 +228,14 @@ router.get('/add-coupens',function(req,res){
        res.redirect('/admin/view-orders')
      })
    })
-                    
-                 
+    
+   router.get('/deliver-order/:id',(req,res)=>{
+    let userId=req.params.id
+    productHelpers.deliverOrder(userId).then((response)=>{
+      res.redirect('/admin/view-orders')
+    })
+  })
+                         
 module.exports = router; 
                                
 

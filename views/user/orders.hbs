@@ -38,7 +38,14 @@
       <td>
         <a href="/view-order-products/{{this._id}}" class="btn btn-success">View Products</a>
       </td>
-      <td> <a href="orders/{{this._id}}" class="btn btn-success">Return Order</a></td>
+      <td>
+        {{#if this.dummy}}
+      <a href="return/{{this._id}}" class="btn btn-success">Return Order</a>
+      {{else}}
+      <a href="orders/{{this._id}}" class="btn btn-success">Cancel Order</a>
+      {{/if}}
+      </td>
+      
     </tr>
     {{/each}}
   </tbody>

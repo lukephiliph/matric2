@@ -11,7 +11,6 @@ var app = express();
 var fileUpload=require('express-fileupload')
 var productHelper=require('./helpers/product-helpers')
 var session=require('express-session')
-
 app.use(fileUpload())
 app.use(session({secret:"Key",cookie:{maxAge:600000}}))
 db.connect((err)=>{

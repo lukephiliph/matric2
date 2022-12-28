@@ -40,7 +40,7 @@ router.get('/login',(req,res)=>{
 
   
 router.get('/signup',(req,res)=>{
-  res.render('user/signup')
+  res.render('user/signup')        
 })
 router.post('/signup',(req,res)=>{
      userHelpers.doSignup(req.body).then((response)=>{
@@ -119,7 +119,7 @@ router.get('/place-order',verifylogin,async(req,res)=>{
          })
         
       } 
-               
+                    
             
     })    
     
@@ -191,14 +191,21 @@ router.post('/coopen',async(req,res)=>{
 
 router.route('/selectedpro/:id').get(verifylogin,async(req,res)=>{
   let products=await productHelpers.getSelectedProducts(req.params.id)
-  res.render('user/selectedpro',{products})
+  res.render('user/selectedpro',{user:true,products})
 })
 router.get('/orders/:id',(req,res)=>{
   let userId=req.params.id
   productHelpers.cancelOrder(userId).then((response)=>{
     res.redirect('/orders')
   })
-})            
+})         
+
+router.get('/return/:id',(req,res)=>{
+  let userId=req.params.id
+  productHelpers.returnOrder(userId).then((response)=>{
+    res.redirect('/orders')
+  })
+})   
          
 module.exports = router;   
              

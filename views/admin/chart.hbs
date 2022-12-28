@@ -1,28 +1,70 @@
- <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style>
+ 
  <link href="/stylesheets/dashboard.css" rel="stylesheet">
 
- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
- <section class="container mt-4">
-  <canvas id="myChart" style="width:100%;max-width:1200px"></canvas>
+   
+ <!DOCTYPE html>
+<html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.1.1/chart.min.js"></script>
+<body>
+<section class="container mt-4">
+  <div class="container-fluid">
+        <div class="row">
+          <div class="col shadow p-4">Total Revenue Rs : <span style="color: red;">{{totalAmount}}/-</span></div>
+          <div class="col shadow p-4">Total Orders : <span style="color: red;">{{totalSales}}</span></div>
+         
+          {{#each orders}}
+          <h2>{{this.date}}</h2>
+          {{/each}}
+        </div>
+      </div>
+      <br>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col p-4"><canvas id="myChart" style="width:100%;max-width:600px"></canvas></div>
+          <div class="col p-4"><canvas id="Chart" style="width:100%;max-width:600px"></canvas></div>
+        </div>
+      </div>
   </section>
+  <div style="width: 800px;"><canvas id="acquisitions"></canvas></div>
+  <div class="container"></div>
+<script>
+var xValues = [
+            {{#each date}}
+            '{{this}}',
+            {{/each}}
+            ];
+var yValues = [55,33, 44, 24, 40,34];
+var barColors = ["red", "green","blue","orange","brown"];
+
+new Chart("myChart", {
+  type: "bar",
+  data: {
+    labels: xValues,
+    datasets: [{
+      backgroundColor: barColors,
+      data: yValues
+    }]
+  },
+  options: {
+    legend: {display: false},
+    title: {
+      display: true,
+      text: "Sales per Day"
+    }
+  }
+});
+</script>
+
+    <!-- <div style="width: 500px;"><canvas id="dimensions"></canvas></div><br/> -->
+    
+
+    <!-- <script type="module" src="dimensions.js"></script> -->
+    <script type="module" src="acquisitions.js"></script>
 
 <script>
-var xValues = ["Sales", "Orders", "Profit"];
-var yValues = [10,{{totalorders}}, 10];
+var xValues = ["Sales", "PROFIT", "totalOrders"];
+var yValues = [21, 6, 22];
 var barColors = [
   "#b91d47",
   "#00aba9",
@@ -31,8 +73,8 @@ var barColors = [
   "#1e7145"
 ];
 
-new Chart("myChart", {
-  type: "pie",
+new Chart("Chart", {
+  type: "doughnut",
   data: {
     labels: xValues,
     datasets: [{
@@ -43,11 +85,8 @@ new Chart("myChart", {
   options: {
     title: {
       display: true,
-      text: "Sales chart overall"
+      text: "World Wide Wine Production 2018"
     }
   }
 });
 </script>
- 
- <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js" integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script>
